@@ -1,5 +1,5 @@
 import "@mantine/core/styles.css";
-import { Flex, MantineProvider, Stack } from "@mantine/core";
+import { Card, Flex, MantineProvider, Stack, Text } from "@mantine/core";
 import { theme } from "./theme";
 import { SegmentedButton } from "./SegmentedButton";
 import { useState } from "react";
@@ -43,7 +43,7 @@ type Formatting = typeof formatting[number]['value']
 
 export default function App() {
   const [company, setCompany] = useState<Company>();
-  const [format, setFormat] = useState<Formatting[]>();
+  const [format, setFormat] = useState<Formatting[]>([]);
 
   return (
     <MantineProvider theme={theme}>
@@ -64,6 +64,16 @@ export default function App() {
             onClick={setFormat}
             value={format}
           />
+          <Card>
+            <Text
+              fw={format.includes('bold') ? 'bold' : 'normal'}
+              td={[
+                format.includes('underline') && 'underline',
+                format.includes('strikethrough') && 'line-through'
+              ].filter(Boolean).join(' ')}
+              fs={format.includes('italic') ? 'italic' : undefined}
+            >The quick brown Fox jumps over the big bad Wolf</Text>
+          </Card>
         </Stack>
       </Flex>
     </MantineProvider>
